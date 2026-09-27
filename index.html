@@ -1,1445 +1,1116 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>DINKANxMALLU | Minecraft SMP</title>
-  <meta name="description" content="DINKANxMALLU Minecraft SMP - Join our community and start your adventure!">
-  <meta name="theme-color" content="#8b5cf6">
+<title>DINKANxMALLU | Minecraft SMP</title>
+<meta name="description" content="DINKANxMALLU Minecraft SMP — Join our community, play survival, climb the ranks and have fun!">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: white;
+    background: #03040a;
+    overflow-x: hidden;
+}
+
+/* ================= BACKGROUND ================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0,255,255,.15), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(150,0,255,.18), transparent 25%),
+        radial-gradient(circle at 50% 90%, rgba(255,0,100,.12), transparent 30%),
+        linear-gradient(120deg,#03040a,#080011,#020713,#09000d);
+
+    background-size: 200% 200%;
+    animation: bgMove 15s ease infinite;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Minecraft-style grid */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+
+    background-size: 45px 45px;
+}
+
+/* ================= PARTICLES ================= */
+
+.particles {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #00f7ff;
+    box-shadow: 0 0 15px #00f7ff;
+    animation: float linear infinite;
+    opacity: .7;
+}
+
+@keyframes float {
+    from {
+        transform: translateY(110vh) translateX(0);
     }
-
-    :root {
-      --bg: #050509;
-      --card: rgba(15, 15, 25, 0.72);
-      --border: rgba(255,255,255,0.12);
-      --text: #ffffff;
-      --muted: #a7a7b7;
-      --purple: #9b5cff;
-      --pink: #ff3cac;
-      --cyan: #00eaff;
-      --green: #00ff88;
+    to {
+        transform: translateY(-10vh) translateX(100px);
     }
+}
 
-    body {
-      font-family: "Poppins", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+/* ================= NAVBAR ================= */
 
-    /* =========================
-       BACKGROUND
-    ========================= */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -10;
-      background:
-        linear-gradient(rgba(5,5,9,.76), rgba(5,5,9,.95)),
-        url("https://images.unsplash.com/photo-1587573089734-09cb69c0f2b7?auto=format&fit=crop&w=2400&q=90")
-        center/cover no-repeat;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    .background::before {
-      content: "";
-      position: absolute;
-      inset: -20%;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(155,92,255,.28), transparent 25%),
-        radial-gradient(circle at 80% 20%, rgba(0,234,255,.20), transparent 25%),
-        radial-gradient(circle at 70% 80%, rgba(255,60,172,.20), transparent 25%),
-        radial-gradient(circle at 20% 80%, rgba(0,255,136,.14), transparent 25%);
-      animation: bgMove 12s ease-in-out infinite alternate;
-      filter: blur(30px);
-    }
+    padding: 18px 6%;
 
-    @keyframes bgMove {
-      0% {
-        transform: translate(-2%, -2%) scale(1);
-      }
-      50% {
-        transform: translate(3%, 2%) scale(1.08);
-      }
-      100% {
-        transform: translate(-2%, 3%) scale(1);
-      }
-    }
+    background: rgba(3,4,10,.72);
+    backdrop-filter: blur(18px);
 
-    /* =========================
-       PARTICLES
-    ========================= */
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
 
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
-      overflow: hidden;
-    }
+.logo {
+    font-family: Orbitron, sans-serif;
+    font-size: 22px;
+    font-weight: 900;
 
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: white;
-      opacity: .6;
-      animation: float 8s linear infinite;
-      box-shadow: 0 0 12px #fff;
-    }
-
-    @keyframes float {
-      from {
-        transform: translateY(110vh);
-      }
-      to {
-        transform: translateY(-10vh);
-      }
-    }
-
-    /* =========================
-       NAVBAR
-    ========================= */
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      padding: 18px 5%;
-      transition: .3s;
-    }
-
-    header.scrolled {
-      background: rgba(5,5,9,.82);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    nav {
-      max-width: 1250px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-family: "Orbitron", sans-serif;
-      font-size: 22px;
-      font-weight: 900;
-      text-decoration: none;
-      color: white;
-      letter-spacing: 1px;
-    }
-
-    .logo span {
-      background: linear-gradient(
+    background: linear-gradient(
         90deg,
-        #ff3cac,
-        #784ba0,
-        #2b86c5,
-        #00eaff,
+        #00f7ff,
+        #7b2cff,
+        #ff1493,
         #00ff88,
-        #ff3cac
-      );
-      background-size: 400%;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: rgbText 6s linear infinite;
-    }
+        #00f7ff
+    );
 
-    @keyframes rgbText {
-      0% { background-position: 0%; }
-      100% { background-position: 400%; }
-    }
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
+    animation: rgbText 6s linear infinite;
+}
 
-    .nav-links a {
-      color: #ddd;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-      transition: .3s;
-    }
+@keyframes rgbText {
+    0% { background-position: 0%; }
+    100% { background-position: 300%; }
+}
 
-    .nav-links a:hover {
-      color: #fff;
-      text-shadow: 0 0 15px var(--purple);
-    }
+.nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+}
 
-    .nav-discord {
-      padding: 10px 18px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #5865f2, #7c5cff);
-      box-shadow: 0 0 25px rgba(88,101,242,.35);
-    }
+.nav-links a {
+    color: #ddd;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .3s;
+}
 
-    .menu {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-    }
+.nav-links a:hover {
+    color: #00f7ff;
+    text-shadow: 0 0 15px #00f7ff;
+}
 
-    /* =========================
-       HERO
-    ========================= */
+/* ================= HERO ================= */
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 120px 20px 70px;
-      position: relative;
-    }
+.hero {
+    min-height: 100vh;
+    padding: 150px 7% 80px;
 
-    .hero-content {
-      max-width: 950px;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
-    .badge {
-      display: inline-block;
-      padding: 9px 18px;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      backdrop-filter: blur(12px);
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 25px;
-      color: #ddd;
-    }
+    position: relative;
+}
 
-    .hero h1 {
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(48px, 9vw, 105px);
-      line-height: .95;
-      font-weight: 900;
-      letter-spacing: -4px;
-      margin-bottom: 25px;
+.hero-content {
+    max-width: 1000px;
+}
 
-      background: linear-gradient(
-        90deg,
-        #fff,
-        #cba6ff,
-        #ff3cac,
-        #00eaff,
-        #fff
-      );
+.badge {
+    display: inline-block;
 
-      background-size: 300%;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: rgbText 7s linear infinite;
-      text-shadow: 0 0 50px rgba(155,92,255,.18);
-    }
+    padding: 10px 18px;
+    margin-bottom: 25px;
 
-    .hero p {
-      max-width: 700px;
-      margin: auto;
-      color: #c2c2cc;
-      font-size: 17px;
-      line-height: 1.8;
-    }
+    border: 1px solid rgba(0,247,255,.35);
+    border-radius: 999px;
 
-    .hero-buttons {
-      margin-top: 35px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
+    background: rgba(0,247,255,.08);
+    color: #00f7ff;
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 175px;
-      padding: 14px 24px;
-      border-radius: 14px;
-      text-decoration: none;
-      color: white;
-      font-weight: 700;
-      transition: .3s;
-      border: 1px solid var(--border);
-    }
+    font-size: 13px;
+    font-weight: 700;
 
-    .btn:hover {
-      transform: translateY(-5px);
-    }
+    box-shadow:
+        0 0 25px rgba(0,247,255,.12);
+}
 
-    .btn-primary {
-      background: linear-gradient(135deg, #9b5cff, #ff3cac);
-      box-shadow: 0 0 35px rgba(155,92,255,.3);
-    }
+.hero h1 {
+    font-family: Orbitron, sans-serif;
+    font-size: clamp(48px, 9vw, 110px);
+    line-height: .95;
+    font-weight: 900;
 
-    .btn-secondary {
-      background: rgba(255,255,255,.07);
-      backdrop-filter: blur(15px);
-    }
+    background:
+        linear-gradient(
+            90deg,
+            #00f7ff,
+            #ffffff,
+            #9b4dff,
+            #ff1493,
+            #00ff88,
+            #00f7ff
+        );
 
-    /* =========================
-       SERVER STATUS
-    ========================= */
+    background-size: 400%;
 
-    .status-box {
-      max-width: 950px;
-      margin: -20px auto 80px;
-      padding: 22px;
-      position: relative;
-      z-index: 5;
-    }
+    -webkit-background-clip: text;
+    color: transparent;
 
-    .status-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 25px;
-      border: 1px solid var(--border);
-      background: rgba(10,10,18,.75);
-      backdrop-filter: blur(20px);
-      border-radius: 22px;
-      box-shadow: 0 20px 80px rgba(0,0,0,.35);
-    }
+    animation: rgbText 7s linear infinite;
 
-    .status-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+    filter: drop-shadow(0 0 25px rgba(0,247,255,.25));
+}
 
-    .status-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #00ff88;
-      box-shadow: 0 0 20px #00ff88;
-      animation: pulse 1.5s infinite;
-    }
+.hero h2 {
+    margin-top: 20px;
+    color: #cfcfcf;
+    font-size: clamp(18px, 3vw, 27px);
+}
 
-    @keyframes pulse {
-      50% {
-        transform: scale(1.25);
-        opacity: .6;
-      }
-    }
+.hero p {
+    max-width: 700px;
+    margin: 20px auto 0;
 
-    .status-title {
-      font-weight: 800;
-    }
+    color: #9e9eaa;
+    line-height: 1.8;
+}
 
-    .status-sub {
-      color: var(--muted);
-      font-size: 13px;
-    }
+/* ================= BUTTONS ================= */
 
-    .server-ip {
-      font-family: monospace;
-      font-size: 15px;
-      color: #fff;
-    }
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 35px;
+}
 
-    .copy-btn {
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.07);
-      color: white;
-      padding: 11px 17px;
-      border-radius: 10px;
-      font-weight: 700;
-    }
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    /* =========================
-       GENERAL SECTIONS
-    ========================= */
+    min-width: 170px;
+    padding: 14px 24px;
 
-    section {
-      padding: 100px 5%;
-    }
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.12);
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-    }
+    color: white;
+    text-decoration: none;
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 55px;
-    }
+    font-weight: 800;
 
-    .section-title span {
-      color: #bda1ff;
-      font-size: 13px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+    cursor: pointer;
+    transition: .3s;
 
-    .section-title h2 {
-      margin-top: 10px;
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(30px, 5vw, 52px);
-    }
+    background: rgba(255,255,255,.06);
+    backdrop-filter: blur(10px);
+}
 
-    .section-title p {
-      margin: 15px auto 0;
-      color: var(--muted);
-      max-width: 650px;
-    }
+.btn:hover {
+    transform: translateY(-5px) scale(1.02);
+}
 
-    /* =========================
-       FEATURES
-    ========================= */
+.btn-primary {
+    background: linear-gradient(135deg,#00d9ff,#7b2cff);
+    box-shadow: 0 0 30px rgba(0,217,255,.25);
+}
 
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
+.btn-discord {
+    background: linear-gradient(135deg,#5865f2,#7b2cff);
+    box-shadow: 0 0 30px rgba(88,101,242,.25);
+}
 
-    .card {
-      padding: 30px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      backdrop-filter: blur(18px);
-      transition: .35s;
-    }
+.btn-shop {
+    background: linear-gradient(135deg,#ff1493,#ff4d00);
+}
 
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(155,92,255,.5);
-      box-shadow: 0 20px 50px rgba(0,0,0,.35);
-    }
+.btn-vote {
+    background: linear-gradient(135deg,#00c853,#00e5ff);
+}
 
-    .icon {
-      width: 55px;
-      height: 55px;
-      display: grid;
-      place-items: center;
-      border-radius: 15px;
-      font-size: 25px;
-      background: linear-gradient(135deg, rgba(155,92,255,.22), rgba(0,234,255,.15));
-      margin-bottom: 20px;
-    }
+/* ================= SERVER CARD ================= */
 
-    .card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
+.server-card {
+    max-width: 850px;
+    margin: 45px auto 0;
 
-    .card p {
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 14px;
-    }
+    padding: 24px;
 
-    /* =========================
-       STATS
-    ========================= */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 25px;
-    }
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 22px;
 
-    .stat {
-      text-align: center;
-      padding: 28px 15px;
-      background: rgba(255,255,255,.045);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-    }
+    background: rgba(255,255,255,.055);
+    backdrop-filter: blur(18px);
 
-    .stat strong {
-      display: block;
-      font-family: "Orbitron";
-      font-size: 32px;
-      margin-bottom: 5px;
-    }
+    box-shadow: 0 25px 80px rgba(0,0,0,.35);
+}
 
-    .stat span {
-      color: var(--muted);
-      font-size: 13px;
-    }
+.server-box {
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(0,0,0,.22);
+}
 
-    /* =========================
-       SHOP
-    ========================= */
+.server-box small {
+    display: block;
+    color: #888;
+    margin-bottom: 7px;
+}
 
-    .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
+.server-box strong {
+    font-size: 17px;
+}
 
-    .shop-card {
-      text-align: center;
-      padding: 35px 25px;
-      border-radius: 22px;
-      background: linear-gradient(
+.online {
+    color: #00ff88;
+}
+
+.ip {
+    color: #00eaff;
+}
+
+/* ================= SECTIONS ================= */
+
+section {
+    padding: 100px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-family: Orbitron, sans-serif;
+    font-size: clamp(30px,5vw,52px);
+}
+
+.section-title p {
+    margin-top: 10px;
+    color: #888;
+}
+
+/* ================= CARDS ================= */
+
+.grid {
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.card {
+    padding: 30px;
+
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,.08);
+
+    background: linear-gradient(
         145deg,
         rgba(255,255,255,.08),
         rgba(255,255,255,.025)
-      );
-      border: 1px solid var(--border);
-    }
+    );
 
-    .shop-icon {
-      font-size: 50px;
-      margin-bottom: 15px;
-    }
+    backdrop-filter: blur(16px);
 
-    .shop-card h3 {
-      font-size: 22px;
-    }
+    transition: .35s;
+}
 
-    .price {
-      font-size: 26px;
-      font-weight: 800;
-      margin: 15px 0;
-      background: linear-gradient(90deg,#00eaff,#9b5cff,#ff3cac);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
+.card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0,247,255,.3);
+    box-shadow: 0 20px 60px rgba(0,247,255,.08);
+}
 
-    /* =========================
-       RANKS
-    ========================= */
+.card-icon {
+    font-size: 40px;
+    margin-bottom: 18px;
+}
 
-    .rank-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
+.card h3 {
+    margin-bottom: 10px;
+}
 
-    .rank {
-      padding: 28px 20px;
-      text-align: center;
-      background: rgba(255,255,255,.045);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-    }
+.card p {
+    color: #999;
+    line-height: 1.7;
+}
 
-    .rank-name {
-      font-family: "Orbitron";
-      font-weight: 800;
-      font-size: 19px;
-      margin-bottom: 12px;
-    }
+/* ================= RANKS ================= */
 
-    .rank p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
+.rank-card {
+    text-align: center;
+}
 
-    .owner { color: #ff4b4b; }
-    .admin { color: #00eaff; }
-    .mod { color: #8dff00; }
-    .helper { color: #00ff88; }
-    .vip { color: #ffd400; }
-    .member { color: #cfcfcf; }
+.rank-name {
+    font-family: Orbitron, sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    margin: 15px 0;
+}
 
-    /* =========================
-       RULES
-    ========================= */
+.owner {
+    background: linear-gradient(90deg,#ff003c,#ff8a00,#ff003c);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 3s linear infinite;
+}
 
-    .rules {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
+.admin {
+    background: linear-gradient(90deg,#00eaff,#0077ff,#9b4dff,#00eaff);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 4s linear infinite;
+}
 
-    .rule {
-      padding: 23px;
-      background: rgba(255,255,255,.045);
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      display: flex;
-      gap: 15px;
-      align-items: flex-start;
-    }
+.sradmin {
+    background: linear-gradient(90deg,#ff00d4,#7b2cff,#00eaff,#ff00d4);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 4s linear infinite;
+}
 
-    .rule-number {
-      min-width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: 10px;
-      background: linear-gradient(135deg,#9b5cff,#ff3cac);
-      font-weight: 800;
-    }
+.mod {
+    background: linear-gradient(90deg,#00ff88,#00eaff,#00ff88);
+    background-size: 250%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 4s linear infinite;
+}
 
-    .rule h4 {
-      margin-bottom: 5px;
-    }
+.helper {
+    background: linear-gradient(90deg,#00ff88,#8cff00,#00ff88);
+    background-size: 250%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 4s linear infinite;
+}
 
-    .rule p {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
+.vip {
+    background: linear-gradient(90deg,#ffd000,#ff7a00,#fff000,#ffd000);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 4s linear infinite;
+}
 
-    /* =========================
-       CTA
-    ========================= */
+.media {
+    background: linear-gradient(90deg,#ff69b4,#ff1493,#c026ff,#ff69b4);
+    background-size: 300%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 4s linear infinite;
+}
 
-    .cta {
-      padding: 80px 30px;
-      text-align: center;
-      border-radius: 30px;
-      background:
-        radial-gradient(circle at 20% 50%, rgba(155,92,255,.3), transparent 35%),
-        radial-gradient(circle at 80% 50%, rgba(255,60,172,.25), transparent 35%),
-        rgba(255,255,255,.045);
-      border: 1px solid var(--border);
-    }
+.member {
+    background: linear-gradient(90deg,#ffffff,#8e9aaf,#ffffff);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rgbText 5s linear infinite;
+}
 
-    .cta h2 {
-      font-family: "Orbitron";
-      font-size: clamp(30px, 5vw, 55px);
-      margin-bottom: 15px;
-    }
+/* ================= SHOP ================= */
 
-    .cta p {
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
+.price {
+    font-size: 26px;
+    font-weight: 900;
+    color: #00ff88;
+    margin: 15px 0;
+}
 
-    /* =========================
-       FOOTER
-    ========================= */
+.shop-button {
+    width: 100%;
+}
 
-    footer {
-      padding: 45px 5%;
-      border-top: 1px solid var(--border);
-      background: rgba(0,0,0,.3);
-    }
+/* ================= LEADERBOARD ================= */
 
-    .footer-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
+.leaderboard {
+    max-width: 900px;
+    margin: auto;
+}
 
-    .footer-text {
-      color: var(--muted);
-      font-size: 13px;
-    }
+.player {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 
-    .socials {
-      display: flex;
-      gap: 10px;
-    }
+    padding: 18px 20px;
+    margin-bottom: 10px;
 
-    .socials a {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      color: white;
-      text-decoration: none;
-      background: rgba(255,255,255,.07);
-      border: 1px solid var(--border);
-      transition: .3s;
-    }
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
 
-    .socials a:hover {
-      transform: translateY(-4px);
-      background: rgba(155,92,255,.2);
-    }
+    background: rgba(255,255,255,.04);
+}
 
-    /* =========================
-       MOBILE
-    ========================= */
+.place {
+    font-family: Orbitron;
+    font-size: 20px;
+    font-weight: 900;
+    width: 50px;
+}
 
-    @media (max-width: 900px) {
-      .features,
-      .shop-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+.player-name {
+    flex: 1;
+    font-weight: 700;
+}
 
-      .rank-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+.kills {
+    color: #ff4d6d;
+}
 
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+/* ================= RULES ================= */
 
-    @media (max-width: 700px) {
+.rules {
+    max-width: 900px;
+    margin: auto;
+}
 
-      header {
-        padding: 15px 20px;
-      }
+.rule {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
 
-      .menu {
-        display: block;
-      }
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
 
-      .nav-links {
-        position: absolute;
-        top: 75px;
-        left: 20px;
-        right: 20px;
+.rule span {
+    font-size: 25px;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    padding: 60px 7%;
+    text-align: center;
+
+    border-top: 1px solid rgba(255,255,255,.07);
+    background: rgba(0,0,0,.3);
+}
+
+footer h2 {
+    font-family: Orbitron;
+}
+
+footer p {
+    color: #777;
+    margin-top: 12px;
+}
+
+.social {
+    margin-top: 25px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px) {
+    .nav-links {
         display: none;
-        flex-direction: column;
-        padding: 25px;
-        background: rgba(8,8,14,.95);
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        backdrop-filter: blur(20px);
-      }
-
-      .nav-links.active {
-        display: flex;
-      }
-
-      .nav-discord {
-        display: inline-block;
-      }
-
-      .status-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .server-ip {
-        word-break: break-all;
-      }
-
-      .features,
-      .shop-grid,
-      .rank-grid,
-      .rules {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        letter-spacing: -2px;
-      }
-
-      .hero p {
-        font-size: 14px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        text-align: center;
-      }
     }
-  </style>
+
+    .server-card {
+        grid-template-columns: 1fr;
+    }
+
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width:600px) {
+    nav {
+        padding: 15px 5%;
+    }
+
+    .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    section {
+        padding: 75px 5%;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .server-card {
+        padding: 12px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- BACKGROUND -->
-  <div class="background"></div>
-  <div class="particles" id="particles"></div>
+<div class="particles" id="particles"></div>
 
-  <!-- =========================
-       NAVBAR
-  ========================== -->
+<!-- ================= NAVBAR ================= -->
 
-  <header id="header">
-    <nav>
+<nav>
+    <div class="logo">⚔ DINKANxMALLU</div>
 
-      <a href="#home" class="logo">
-        ⚔ <span>DINKANxMALLU</span>
-      </a>
-
-      <div class="menu" id="menu">
-        ☰
-      </div>
-
-      <ul class="nav-links" id="navLinks">
+    <ul class="nav-links">
         <li><a href="#home">Home</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#shop">Shop</a></li>
         <li><a href="#ranks">Ranks</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#leaderboard">Leaderboard</a></li>
         <li><a href="#rules">Rules</a></li>
-        <li>
-          <a
-            href="https://discord.gg/"
-            target="_blank"
-            class="nav-discord"
-          >
-            Discord
-          </a>
-        </li>
-      </ul>
+        <li><a href="#discord">Discord</a></li>
+    </ul>
+</nav>
 
-    </nav>
-  </header>
+<!-- ================= HERO ================= -->
 
+<header class="hero" id="home">
 
-  <!-- =========================
-       HERO
-  ========================== -->
-
-  <main id="home">
-
-    <section class="hero">
-
-      <div class="hero-content">
+    <div class="hero-content">
 
         <div class="badge">
-          ⛏ MINECRAFT SURVIVAL MULTIPLAYER
+            ⛏️ MINECRAFT SURVIVAL MULTIPLAYER
         </div>
 
         <h1>DINKANxMALLU</h1>
 
+        <h2>⚡ Your Ultimate Minecraft SMP</h2>
+
         <p>
-          Welcome to DINKANxMALLU — a next-generation Minecraft SMP
-          built for adventure, survival, friendship and unforgettable moments.
+            Build your empire, explore the world, create your team,
+            climb the ranks and become part of the DINKANxMALLU community.
         </p>
 
-        <div class="hero-buttons">
+        <div class="buttons">
 
-          <a href="#server" class="btn btn-primary">
-            🎮 PLAY NOW
-          </a>
+            <button class="btn btn-primary" onclick="copyIP()">
+                📋 COPY IP
+            </button>
 
-          <a
-            href="https://discord.gg/"
-            target="_blank"
-            class="btn btn-secondary"
-          >
-            💬 JOIN DISCORD
-          </a>
+            <a
+                class="btn btn-discord"
+                href="https://discord.gg/xCVpZvMnR"
+                target="_blank"
+            >
+                💬 DISCORD
+            </a>
+
+            <a class="btn btn-shop" href="#shop">
+                🛒 SHOP
+            </a>
+
+            <a class="btn btn-vote" href="#vote">
+                ⭐ VOTE
+            </a>
 
         </div>
 
-      </div>
+        <!-- SERVER STATUS -->
 
-    </section>
+        <div class="server-card">
 
-
-    <!-- =========================
-         SERVER STATUS
-    ========================== -->
-
-    <div class="status-box" id="server">
-
-      <div class="status-card">
-
-        <div class="status-left">
-
-          <div class="status-dot"></div>
-
-          <div>
-            <div class="status-title">
-              SERVER STATUS
+            <div class="server-box">
+                <small>SERVER STATUS</small>
+                <strong class="online">● ONLINE</strong>
             </div>
 
-            <div class="status-sub">
-              DINKANxMALLU • Online
+            <div class="server-box">
+                <small>SERVER IP</small>
+                <strong class="ip">DINKANxMALLU.aternos.me</strong>
             </div>
-          </div>
+
+            <div class="server-box">
+                <small>PLAYERS</small>
+                <strong id="playerCount">Loading...</strong>
+            </div>
 
         </div>
-
-        <div class="server-ip" id="serverIP">
-          YOUR_SERVER_IP
-        </div>
-
-        <button class="copy-btn" onclick="copyIP()">
-          📋 COPY IP
-        </button>
-
-      </div>
 
     </div>
 
+</header>
 
-    <!-- =========================
-         FEATURES
-    ========================== -->
+<!-- ================= FEATURES ================= -->
 
-    <section id="features">
+<section>
 
-      <div class="container">
+    <div class="section-title">
+        <h2>🔥 SERVER FEATURES</h2>
+        <p>Everything you need for an amazing SMP experience.</p>
+    </div>
 
-        <div class="section-title">
-          <span>WHY DINKANxMALLU</span>
-          <h2>Server Features</h2>
-          <p>
-            Everything you need for a fun and exciting Minecraft SMP experience.
-          </p>
-        </div>
+    <div class="grid">
 
-        <div class="features">
-
-          <div class="card">
-            <div class="icon">🌎</div>
+        <div class="card">
+            <div class="card-icon">🌎</div>
             <h3>Survival World</h3>
             <p>
-              Explore a large survival world, build your base,
-              collect resources and create your own adventure.
+                Explore, build, mine and create your own Minecraft story.
             </p>
-          </div>
+        </div>
 
-          <div class="card">
-            <div class="icon">⚔️</div>
-            <h3>SMP Gameplay</h3>
+        <div class="card">
+            <div class="card-icon">⚔️</div>
+            <h3>Epic Gameplay</h3>
             <p>
-              Enjoy a community-focused SMP experience with
-              players, events and exciting gameplay.
+                Events, challenges, economy and community gameplay.
             </p>
-          </div>
+        </div>
 
-          <div class="card">
-            <div class="icon">💰</div>
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <h3>Rank System</h3>
+            <p>
+                Progress through the DINKANxMALLU rank system.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">💰</div>
             <h3>Economy</h3>
             <p>
-              Earn money, trade items and build your own Minecraft
-              economy empire.
+                Earn money, trade items and build your Minecraft empire.
             </p>
-          </div>
+        </div>
 
-          <div class="card">
-            <div class="icon">🏆</div>
+        <div class="card">
+            <div class="card-icon">🎁</div>
             <h3>Events</h3>
             <p>
-              Participate in server events, challenges and
-              community competitions.
+                Participate in community events and special rewards.
             </p>
-          </div>
-
-          <div class="card">
-            <div class="icon">🛡️</div>
-            <h3>Protected Builds</h3>
-            <p>
-              Build your dream base while keeping your creations
-              protected from unwanted damage.
-            </p>
-          </div>
-
-          <div class="card">
-            <div class="icon">⚡</div>
-            <h3>Active Community</h3>
-            <p>
-              Meet new players, make friends and join our growing
-              Minecraft community.
-            </p>
-          </div>
-
         </div>
 
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         STATS
-    ========================== -->
-
-    <section>
-
-      <div class="container">
-
-        <div class="section-title">
-          <span>DINKANxMALLU</span>
-          <h2>Server Stats</h2>
+        <div class="card">
+            <div class="card-icon">💬</div>
+            <h3>Community</h3>
+            <p>
+                Meet other players and join the official Discord community.
+            </p>
         </div>
-
-        <div class="stats">
-
-          <div class="stat">
-            <strong>24/7</strong>
-            <span>Server Availability</span>
-          </div>
-
-          <div class="stat">
-            <strong>1.21+</strong>
-            <span>Minecraft Version</span>
-          </div>
-
-          <div class="stat">
-            <strong>∞</strong>
-            <span>Adventure</span>
-          </div>
-
-          <div class="stat">
-            <strong>100%</strong>
-            <span>Community</span>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SHOP
-    ========================== -->
-
-    <section id="shop">
-
-      <div class="container">
-
-        <div class="section-title">
-          <span>STORE</span>
-          <h2>DINKAN SHOP</h2>
-          <p>
-            Support the server and unlock awesome cosmetic perks.
-          </p>
-        </div>
-
-        <div class="shop-grid">
-
-          <div class="shop-card">
-            <div class="shop-icon">💎</div>
-            <h3>VIP</h3>
-            <div class="price">₹99</div>
-            <p>
-              Special VIP perks and exclusive benefits.
-            </p>
-            <br>
-            <a href="#" class="btn btn-primary">
-              BUY NOW
-            </a>
-          </div>
-
-          <div class="shop-card">
-            <div class="shop-icon">🔥</div>
-            <h3>MVP</h3>
-            <div class="price">₹199</div>
-            <p>
-              More perks, more features and more style.
-            </p>
-            <br>
-            <a href="#" class="btn btn-primary">
-              BUY NOW
-            </a>
-          </div>
-
-          <div class="shop-card">
-            <div class="shop-icon">👑</div>
-            <h3>LEGEND</h3>
-            <div class="price">₹399</div>
-            <p>
-              Premium server rank with exclusive perks.
-            </p>
-            <br>
-            <a href="#" class="btn btn-primary">
-              BUY NOW
-            </a>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         RANKS
-    ========================== -->
-
-    <section id="ranks">
-
-      <div class="container">
-
-        <div class="section-title">
-          <span>STAFF & COMMUNITY</span>
-          <h2>Server Ranks</h2>
-        </div>
-
-        <div class="rank-grid">
-
-          <div class="rank">
-            <div class="rank-name owner">
-              ᴏᴡɴᴇʀ
-            </div>
-            <p>
-              Server owner and highest staff rank.
-            </p>
-          </div>
-
-          <div class="rank">
-            <div class="rank-name admin">
-              ᴀᴅᴍɪɴ
-            </div>
-            <p>
-              Server administration and management.
-            </p>
-          </div>
-
-          <div class="rank">
-            <div class="rank-name mod">
-              ᴍᴏᴅ
-            </div>
-            <p>
-              Helps maintain a safe and friendly server.
-            </p>
-          </div>
-
-          <div class="rank">
-            <div class="rank-name helper">
-              ʜᴇʟᴘᴇʀ
-            </div>
-            <p>
-              Helps players and supports the community.
-            </p>
-          </div>
-
-          <div class="rank">
-            <div class="rank-name vip">
-              ᴠɪᴘ
-            </div>
-            <p>
-              Special player rank with extra perks.
-            </p>
-          </div>
-
-          <div class="rank">
-            <div class="rank-name member">
-              ᴍᴇᴍʙᴇʀ
-            </div>
-            <p>
-              Default rank for DINKANxMALLU players.
-            </p>
-          </div>
-
-          <div class="rank">
-            <div class="rank-name" style="color:#ff69b4;">
-              📹 ᴍᴇᴅɪᴀ
-            </div>
-            <p>
-              Content creators and media members.
-            </p>
-          </div>
-
-          <div class="rank">
-            <div class="rank-name" style="color:#b16cff;">
-              ᴅᴇᴠ
-            </div>
-            <p>
-              Developers and technical team members.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         RULES
-    ========================== -->
-
-    <section id="rules">
-
-      <div class="container">
-
-        <div class="section-title">
-          <span>PLAY FAIR</span>
-          <h2>Server Rules</h2>
-          <p>
-            Keep DINKANxMALLU fun and enjoyable for everyone.
-          </p>
-        </div>
-
-        <div class="rules">
-
-          <div class="rule">
-            <div class="rule-number">01</div>
-            <div>
-              <h4>Respect Players</h4>
-              <p>
-                Treat other players and staff with respect.
-              </p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <div class="rule-number">02</div>
-            <div>
-              <h4>No Griefing</h4>
-              <p>
-                Do not destroy or damage another player's builds.
-              </p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <div class="rule-number">03</div>
-            <div>
-              <h4>No Cheating</h4>
-              <p>
-                Hacks, cheats and unfair advantages are not allowed.
-              </p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <div class="rule-number">04</div>
-            <div>
-              <h4>No Exploiting</h4>
-              <p>
-                Do not abuse bugs, glitches or unintended mechanics.
-              </p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <div class="rule-number">05</div>
-            <div>
-              <h4>No Spam</h4>
-              <p>
-                Keep chat clean and avoid excessive messages.
-              </p>
-            </div>
-          </div>
-
-          <div class="rule">
-            <div class="rule-number">06</div>
-            <div>
-              <h4>Follow Staff</h4>
-              <p>
-                Follow reasonable instructions from server staff.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         DISCORD CTA
-    ========================== -->
-
-    <section>
-
-      <div class="container">
-
-        <div class="cta">
-
-          <h2>JOIN DINKANxMALLU</h2>
-
-          <p>
-            Join our Discord community, meet other players and
-            stay updated with everything happening on the server.
-          </p>
-
-          <a
-            href="https://discord.gg/"
-            target="_blank"
-            class="btn btn-primary"
-          >
-            💬 JOIN DISCORD
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================
-       FOOTER
-  ========================== -->
-
-  <footer>
-
-    <div class="footer-inner">
-
-      <div class="footer-text">
-        © 2026 DINKANxMALLU. All rights reserved.
-        <br>
-        Not affiliated with Mojang or Microsoft.
-      </div>
-
-      <div class="socials">
-
-        <a href="#" title="YouTube">
-          ▶
-        </a>
-
-        <a href="#" title="Discord">
-          💬
-        </a>
-
-        <a href="#" title="Instagram">
-          ◎
-        </a>
-
-        <a href="#" title="TikTok">
-          ♪
-        </a>
-
-      </div>
 
     </div>
 
-  </footer>
+</section>
 
+<!-- ================= RANKS ================= -->
 
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
+<section id="ranks">
 
-  <script>
+    <div class="section-title">
+        <h2>👑 RANKS</h2>
+        <p>Choose your place in the DINKANxMALLU community.</p>
+    </div>
 
-    /* MOBILE MENU */
+    <div class="grid">
 
-    const menu = document.getElementById("menu");
-    const navLinks = document.getElementById("navLinks");
+        <div class="card rank-card">
+            <div class="card-icon">👑</div>
+            <div class="rank-name owner">ᴏᴡɴᴇʀ</div>
+            <p>Full server management.</p>
+        </div>
 
-    menu.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
+        <div class="card rank-card">
+            <div class="card-icon">🛡️</div>
+            <div class="rank-name admin">ᴀᴅᴍɪɴ</div>
+            <p>Server administration.</p>
+        </div>
+
+        <div class="card rank-card">
+            <div class="card-icon">⚡</div>
+            <div class="rank-name sradmin">sʀ ᴀᴅᴍɪɴ</div>
+            <p>Senior administration.</p>
+        </div>
+
+        <div class="card rank-card">
+            <div class="card-icon">⚔️</div>
+            <div class="rank-name mod">ᴍᴏᴅ</div>
+            <p>Moderation team.</p>
+        </div>
+
+        <div class="card rank-card">
+            <div class="card-icon">🛡️</div>
+            <div class="rank-name helper">ʜᴇʟᴘᴇʀ</div>
+            <p>Player support.</p>
+        </div>
+
+        <div class="card rank-card">
+            <div class="card-icon">💎</div>
+            <div class="rank-name vip">ᴠɪᴘ</div>
+            <p>Premium player benefits.</p>
+        </div>
+
+        <div class="card rank-card">
+            <div class="card-icon">📹</div>
+            <div class="rank-name media">ᴍᴇᴅɪᴀ</div>
+            <p>Creators and media members.</p>
+        </div>
+
+        <div class="card rank-card">
+            <div class="card-icon">👤</div>
+            <div class="rank-name member">ᴍᴇᴍʙᴇʀ</div>
+            <p>Every DINKANxMALLU player.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= SHOP ================= -->
+
+<section id="shop">
+
+    <div class="section-title">
+        <h2>🛒 SHOP</h2>
+        <p>Premium items and ranks for your SMP journey.</p>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-icon">💎</div>
+            <h3>VIP Rank</h3>
+            <p>Premium in-game benefits.</p>
+            <div class="price">₹99</div>
+            <a href="#discord" class="btn btn-shop shop-button">
+                BUY
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔥</div>
+            <h3>VIP+</h3>
+            <p>Extra premium features.</p>
+            <div class="price">₹199</div>
+            <a href="#discord" class="btn btn-shop shop-button">
+                BUY
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">👑</div>
+            <h3>Custom Package</h3>
+            <p>Contact the DINKANxMALLU team.</p>
+            <div class="price">CUSTOM</div>
+            <a href="#discord" class="btn btn-shop shop-button">
+                CONTACT
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= VOTE ================= -->
+
+<section id="vote">
+
+    <div class="section-title">
+        <h2>⭐ VOTE FOR US</h2>
+        <p>Support DINKANxMALLU and help our community grow.</p>
+    </div>
+
+    <div class="card" style="max-width:800px;margin:auto;text-align:center;">
+
+        <div class="card-icon">⭐</div>
+
+        <h3>Support the Server</h3>
+
+        <p>
+            Voting links can be added here when your server voting pages
+            are ready.
+        </p>
+
+        <br>
+
+        <button
+            class="btn btn-vote"
+            onclick="alert('Vote links will be added soon!')"
+        >
+            ⭐ VOTE NOW
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ================= LEADERBOARD ================= -->
+
+<section id="leaderboard">
+
+    <div class="section-title">
+        <h2>🏆 LEADERBOARD</h2>
+        <p>Top DINKANxMALLU players.</p>
+    </div>
+
+    <div class="leaderboard">
+
+        <div class="player">
+            <div class="place">#1</div>
+            <div class="player-name">DINKAN</div>
+            <div class="kills">100 KILLS</div>
+        </div>
+
+        <div class="player">
+            <div class="place">#2</div>
+            <div class="player-name">MALLU</div>
+            <div class="kills">85 KILLS</div>
+        </div>
+
+        <div class="player">
+            <div class="place">#3</div>
+            <div class="player-name">PLAYER</div>
+            <div class="kills">70 KILLS</div>
+        </div>
+
+        <div class="player">
+            <div class="place">#4</div>
+            <div class="player-name">PLAYER</div>
+            <div class="kills">55 KILLS</div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= RULES ================= -->
+
+<section id="rules">
+
+    <div class="section-title">
+        <h2>📜 RULES</h2>
+        <p>Keep DINKANxMALLU fun and friendly.</p>
+    </div>
+
+    <div class="rules">
+
+        <div class="rule">
+            <span>🚫</span>
+            <div>
+                <h3>No Griefing</h3>
+                <p>Do not destroy or damage another player's builds.</p>
+            </div>
+        </div>
+
+        <div class="rule">
+            <span>🚫</span>
+            <div>
+                <h3>No Cheating</h3>
+                <p>Do not use unauthorized hacks or exploits.</p>
+            </div>
+        </div>
+
+        <div class="rule">
+            <span>🤝</span>
+            <div>
+                <h3>Respect Players</h3>
+                <p>Keep the community friendly and respectful.</p>
+            </div>
+        </div>
+
+        <div class="rule">
+            <span>💬</span>
+            <div>
+                <h3>Follow Discord Rules</h3>
+                <p>Follow the official Discord community rules.</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= DISCORD ================= -->
+
+<section id="discord">
+
+    <div class="section-title">
+        <h2>💬 JOIN DISCORD</h2>
+        <p>Meet the DINKANxMALLU community.</p>
+    </div>
+
+    <div class="card" style="max-width:850px;margin:auto;text-align:center;">
+
+        <div class="card-icon">💜</div>
+
+        <h3>DINKANxMALLU Official Discord</h3>
+
+        <p>
+            Join the Discord for announcements, events, support,
+            giveaways and community chat.
+        </p>
+
+        <div class="buttons">
+
+            <a
+                class="btn btn-discord"
+                href="https://discord.gg/xCVpZvMnR"
+                target="_blank"
+            >
+                💬 JOIN DISCORD
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h2>⚔ DINKANxMALLU</h2>
+
+    <p>
+        Minecraft SMP • Community • Adventure
+    </p>
+
+    <p>
+        © 2026 DINKANxMALLU. All rights reserved.
+    </p>
+
+</footer>
+
+<script>
+
+/* ================= COPY IP ================= */
+
+function copyIP() {
+
+    const ip = "DINKANxMALLU.aternos.me";
+
+    navigator.clipboard.writeText(ip).then(() => {
+
+        alert("✅ Server IP copied!\n\n" + ip);
+
+    }).catch(() => {
+
+        alert("Server IP:\n" + ip);
+
     });
 
-    document.querySelectorAll(".nav-links a").forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-      });
-    });
+}
 
+/* ================= PARTICLES ================= */
 
-    /* HEADER SCROLL EFFECT */
+const particleContainer =
+    document.getElementById("particles");
 
-    const header = document.getElementById("header");
+for (let i = 0; i < 55; i++) {
 
-    window.addEventListener("scroll", () => {
+    const particle = document.createElement("div");
 
-      if (window.scrollY > 50) {
-        header.classList.add("scrolled");
-      } else {
-        header.classList.remove("scrolled");
-      }
+    particle.className = "particle";
 
-    });
-
-
-    /* COPY SERVER IP */
-
-    function copyIP() {
-
-      const ip = document
-        .getElementById("serverIP")
-        .innerText;
-
-      navigator.clipboard.writeText(ip).then(() => {
-
-        const button = document.querySelector(".copy-btn");
-
-        const oldText = button.innerText;
-
-        button.innerText = "✅ COPIED!";
-
-        setTimeout(() => {
-          button.innerText = oldText;
-        }, 1800);
-
-      });
-
-    }
-
-
-    /* PARTICLES */
-
-    const particles = document.getElementById("particles");
-
-    for (let i = 0; i < 45; i++) {
-
-      const particle = document.createElement("div");
-
-      particle.className = "particle";
-
-      particle.style.left =
+    particle.style.left =
         Math.random() * 100 + "%";
 
-      particle.style.animationDuration =
-        (5 + Math.random() * 10) + "s";
+    particle.style.animationDuration =
+        (6 + Math.random() * 14) + "s";
 
-      particle.style.animationDelay =
-        (Math.random() * 8) + "s";
+    particle.style.animationDelay =
+        (-Math.random() * 15) + "s";
 
-      particle.style.opacity =
-        (0.15 + Math.random() * 0.65);
+    particle.style.opacity =
+        0.2 + Math.random() * 0.8;
 
-      particles.appendChild(particle);
+    particleContainer.appendChild(particle);
+}
 
-    }
+/* ================= DEMO PLAYER COUNT ================= */
+/*
+   Replace this with your real server-status API later.
+*/
 
+document.getElementById("playerCount").textContent =
+    "Live status coming soon";
 
-    /* SIMPLE 3D CARD EFFECT */
-
-    document.querySelectorAll(".card, .shop-card, .rank").forEach(card => {
-
-      card.addEventListener("mousemove", (e) => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const rotateX =
-          ((y / rect.height) - 0.5) * -5;
-
-        const rotateY =
-          ((x / rect.width) - 0.5) * 5;
-
-        card.style.transform =
-          `perspective(700px)
-           rotateX(${rotateX}deg)
-           rotateY(${rotateY}deg)
-           translateY(-5px)`;
-
-      });
-
-      card.addEventListener("mouseleave", () => {
-        card.style.transform = "";
-      });
-
-    });
-
-  </script>
+</script>
 
 </body>
 </html>
+```
