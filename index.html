@@ -1,917 +1,1445 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DINKAN SMP HACK V1 | Minecraft Client</title>
-<meta name="description" content="DINKAN SMP HACK V1 - RGB Minecraft PvP HUD Client">
+  <title>DINKANxMALLU | Minecraft SMP</title>
+  <meta name="description" content="DINKANxMALLU Minecraft SMP - Join our community and start your adventure!">
+  <meta name="theme-color" content="#8b5cf6">
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap');
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Poppins,sans-serif;
-    color:#fff;
-    background:#050509;
-    overflow-x:hidden;
-}
-
-/* ================= RGB BACKGROUND ================= */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:-50%;
-    z-index:-5;
-    background:
-        radial-gradient(circle at 20% 20%,rgba(255,0,85,.25),transparent 25%),
-        radial-gradient(circle at 80% 20%,rgba(0,140,255,.25),transparent 25%),
-        radial-gradient(circle at 50% 80%,rgba(150,0,255,.25),transparent 25%),
-        radial-gradient(circle at 90% 90%,rgba(0,255,150,.2),transparent 25%);
-    filter:blur(50px);
-    animation:bgMove 12s linear infinite alternate;
-}
-
-@keyframes bgMove{
-    0%{transform:translate(-5%,-5%) rotate(0deg);}
-    50%{transform:translate(5%,3%) rotate(8deg);}
-    100%{transform:translate(-3%,7%) rotate(-8deg);}
-}
-
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-4;
-    background:
-        linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
-    background-size:45px 45px;
-}
-
-/* ================= PARTICLES ================= */
-
-.particles{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-1;
-    overflow:hidden;
-}
-
-.particle{
-    position:absolute;
-    width:4px;
-    height:4px;
-    border-radius:50%;
-    background:#fff;
-    box-shadow:0 0 12px #fff;
-    animation:float linear infinite;
-}
-
-@keyframes float{
-    from{
-        transform:translateY(110vh) translateX(0);
-        opacity:0;
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
     }
-    15%{opacity:1;}
-    85%{opacity:1;}
-    to{
-        transform:translateY(-10vh) translateX(100px);
-        opacity:0;
+
+    :root {
+      --bg: #050509;
+      --card: rgba(15, 15, 25, 0.72);
+      --border: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: #a7a7b7;
+      --purple: #9b5cff;
+      --pink: #ff3cac;
+      --cyan: #00eaff;
+      --green: #00ff88;
     }
-}
 
-/* ================= HEADER ================= */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    z-index:1000;
-    backdrop-filter:blur(18px);
-    background:rgba(5,5,9,.65);
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
+    /* =========================
+       BACKGROUND
+    ========================= */
 
-.nav{
-    max-width:1200px;
-    margin:auto;
-    height:76px;
-    padding:0 25px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -10;
+      background:
+        linear-gradient(rgba(5,5,9,.76), rgba(5,5,9,.95)),
+        url("https://images.unsplash.com/photo-1587573089734-09cb69c0f2b7?auto=format&fit=crop&w=2400&q=90")
+        center/cover no-repeat;
+    }
 
-.logo{
-    font-family:Orbitron,sans-serif;
-    font-size:22px;
-    font-weight:900;
-    letter-spacing:1px;
-    background:linear-gradient(
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(155,92,255,.28), transparent 25%),
+        radial-gradient(circle at 80% 20%, rgba(0,234,255,.20), transparent 25%),
+        radial-gradient(circle at 70% 80%, rgba(255,60,172,.20), transparent 25%),
+        radial-gradient(circle at 20% 80%, rgba(0,255,136,.14), transparent 25%);
+      animation: bgMove 12s ease-in-out infinite alternate;
+      filter: blur(30px);
+    }
+
+    @keyframes bgMove {
+      0% {
+        transform: translate(-2%, -2%) scale(1);
+      }
+      50% {
+        transform: translate(3%, 2%) scale(1.08);
+      }
+      100% {
+        transform: translate(-2%, 3%) scale(1);
+      }
+    }
+
+    /* =========================
+       PARTICLES
+    ========================= */
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: white;
+      opacity: .6;
+      animation: float 8s linear infinite;
+      box-shadow: 0 0 12px #fff;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(110vh);
+      }
+      to {
+        transform: translateY(-10vh);
+      }
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 18px 5%;
+      transition: .3s;
+    }
+
+    header.scrolled {
+      background: rgba(5,5,9,.82);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      max-width: 1250px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: "Orbitron", sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      text-decoration: none;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      background: linear-gradient(
         90deg,
-        #ff004c,
-        #ff8a00,
-        #fff000,
+        #ff3cac,
+        #784ba0,
+        #2b86c5,
+        #00eaff,
         #00ff88,
-        #00d9ff,
-        #8b5cff,
-        #ff00d4,
-        #ff004c
-    );
-    background-size:400%;
-    -webkit-background-clip:text;
-    color:transparent;
-    animation:rgbText 6s linear infinite;
-}
+        #ff3cac
+      );
+      background-size: 400%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rgbText 6s linear infinite;
+    }
 
-@keyframes rgbText{
-    to{background-position:400% center;}
-}
+    @keyframes rgbText {
+      0% { background-position: 0%; }
+      100% { background-position: 400%; }
+    }
 
-nav{
-    display:flex;
-    gap:25px;
-}
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
 
-nav a{
-    color:#aaa;
-    text-decoration:none;
-    font-size:14px;
-    transition:.3s;
-}
+    .nav-links a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: .3s;
+    }
 
-nav a:hover{
-    color:#fff;
-    text-shadow:0 0 12px #00d9ff;
-}
+    .nav-links a:hover {
+      color: #fff;
+      text-shadow: 0 0 15px var(--purple);
+    }
 
-/* ================= HERO ================= */
+    .nav-discord {
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #5865f2, #7c5cff);
+      box-shadow: 0 0 25px rgba(88,101,242,.35);
+    }
 
-.hero{
-    min-height:100vh;
-    padding:150px 25px 80px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
+    .menu {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
 
-.hero-content{
-    max-width:900px;
-}
+    /* =========================
+       HERO
+    ========================= */
 
-.badge{
-    display:inline-block;
-    padding:8px 18px;
-    border:1px solid rgba(0,255,255,.4);
-    border-radius:50px;
-    background:rgba(0,255,255,.06);
-    color:#00eaff;
-    font-size:12px;
-    font-weight:700;
-    letter-spacing:2px;
-    margin-bottom:25px;
-    box-shadow:0 0 25px rgba(0,234,255,.12);
-}
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 70px;
+      position: relative;
+    }
 
-h1{
-    font-family:Orbitron,sans-serif;
-    font-size:clamp(42px,8vw,88px);
-    line-height:1;
-    margin-bottom:25px;
-    background:linear-gradient(
+    .hero-content {
+      max-width: 950px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 9px 18px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(12px);
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 25px;
+      color: #ddd;
+    }
+
+    .hero h1 {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(48px, 9vw, 105px);
+      line-height: .95;
+      font-weight: 900;
+      letter-spacing: -4px;
+      margin-bottom: 25px;
+
+      background: linear-gradient(
         90deg,
-        #ff0055,
-        #ff7a00,
-        #ffe600,
-        #00ff88,
-        #00d9ff,
-        #795cff,
-        #ff00d4,
-        #ff0055
-    );
-    background-size:500%;
-    -webkit-background-clip:text;
-    color:transparent;
-    animation:rgbText 7s linear infinite;
-    text-shadow:0 0 50px rgba(0,200,255,.15);
-}
+        #fff,
+        #cba6ff,
+        #ff3cac,
+        #00eaff,
+        #fff
+      );
 
-.hero p{
-    color:#aaa;
-    max-width:650px;
-    margin:0 auto 35px;
-    line-height:1.8;
-}
-
-.buttons{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.btn{
-    text-decoration:none;
-    color:#fff;
-    padding:14px 25px;
-    border-radius:12px;
-    font-weight:700;
-    font-size:14px;
-    border:1px solid rgba(255,255,255,.15);
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(10px);
-    transition:.3s;
-}
-
-.btn:hover{
-    transform:translateY(-4px);
-    box-shadow:0 0 30px rgba(0,220,255,.25);
-}
-
-.btn-primary{
-    border:0;
-    background:linear-gradient(90deg,#ff0055,#7a00ff,#00d9ff);
-    background-size:200%;
-    animation:buttonRGB 5s linear infinite;
-}
-
-@keyframes buttonRGB{
-    to{background-position:200% center;}
-}
-
-/* ================= SERVER STATUS ================= */
-
-.status{
-    margin:30px auto 0;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 17px;
-    border-radius:50px;
-    background:rgba(0,255,120,.07);
-    border:1px solid rgba(0,255,120,.25);
-    color:#71ffad;
-    font-size:13px;
-}
-
-.dot{
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:#00ff78;
-    box-shadow:0 0 15px #00ff78;
-    animation:pulse 1.4s infinite;
-}
-
-@keyframes pulse{
-    50%{opacity:.35;transform:scale(.7);}
-}
-
-/* ================= SECTIONS ================= */
-
-section{
-    max-width:1200px;
-    margin:auto;
-    padding:100px 25px;
-}
-
-.section-title{
-    text-align:center;
-    margin-bottom:55px;
-}
-
-.section-title h2{
-    font-family:Orbitron,sans-serif;
-    font-size:35px;
-    margin-bottom:10px;
-}
-
-.section-title p{
-    color:#888;
-}
-
-/* ================= CARDS ================= */
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.card{
-    position:relative;
-    padding:28px;
-    min-height:190px;
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:18px;
-    background:rgba(255,255,255,.035);
-    backdrop-filter:blur(15px);
-    overflow:hidden;
-    transition:.35s;
-}
-
-.card::before{
-    content:"";
-    position:absolute;
-    top:-2px;
-    left:-100%;
-    width:100%;
-    height:2px;
-    background:linear-gradient(
-        90deg,
-        #ff0055,
-        #ffcc00,
-        #00ff88,
-        #00d9ff,
-        #a855f7,
-        #ff0055
-    );
-    background-size:300%;
-    animation:cardRGB 4s linear infinite;
-}
-
-@keyframes cardRGB{
-    to{left:100%;}
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    border-color:rgba(0,220,255,.3);
-    box-shadow:0 15px 50px rgba(0,0,0,.35);
-}
-
-.icon{
-    font-size:32px;
-    margin-bottom:15px;
-}
-
-.card h3{
-    font-family:Orbitron,sans-serif;
-    font-size:18px;
-    margin-bottom:10px;
-}
-
-.card p{
-    color:#888;
-    font-size:14px;
-    line-height:1.7;
-}
-
-/* ================= HUD ================= */
-
-.hud-demo{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
-
-.hud{
-    min-height:300px;
-    border-radius:20px;
-    padding:25px;
-    position:relative;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,.1);
-    background:
-        linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.82)),
-        radial-gradient(circle at center,#17344a,#060609 65%);
-}
-
-.hud-title{
-    font-family:Orbitron,sans-serif;
-    font-size:14px;
-    color:#00eaff;
-    margin-bottom:25px;
-}
-
-.keystrokes{
-    display:flex;
-    gap:8px;
-    align-items:center;
-    justify-content:center;
-    margin-top:25px;
-}
-
-.key{
-    width:48px;
-    height:48px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:8px;
-    background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.15);
-    font-weight:800;
-    box-shadow:inset 0 0 15px rgba(0,220,255,.05);
-}
-
-.key.active{
-    background:rgba(0,220,255,.25);
-    border-color:#00eaff;
-    box-shadow:0 0 20px rgba(0,220,255,.35);
-}
-
-.stats{
-    display:grid;
-    gap:12px;
-}
-
-.stat{
-    display:flex;
-    justify-content:space-between;
-    padding:13px 15px;
-    border-radius:10px;
-    background:rgba(255,255,255,.05);
-}
-
-.stat span:first-child{
-    color:#888;
-}
-
-.rgb{
-    background:linear-gradient(
-        90deg,
-        #ff0055,
-        #ffae00,
-        #00ff88,
-        #00d9ff,
-        #8b5cff,
-        #ff00c8
-    );
-    background-size:400%;
-    -webkit-background-clip:text;
-    color:transparent;
-    animation:rgbText 5s linear infinite;
-    font-weight:900;
-}
-
-/* ================= CROSSHAIR ================= */
-
-.crosshair-box{
-    height:150px;
-    position:relative;
-    margin-top:20px;
-    background:rgba(0,0,0,.3);
-    border-radius:15px;
-}
-
-.crosshair{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:28px;
-    height:28px;
-    transform:translate(-50%,-50%);
-}
-
-.crosshair::before,
-.crosshair::after{
-    content:"";
-    position:absolute;
-    background:#00ff9d;
-    box-shadow:0 0 10px #00ff9d;
-}
-
-.crosshair::before{
-    width:2px;
-    height:28px;
-    left:13px;
-}
-
-.crosshair::after{
-    height:2px;
-    width:28px;
-    top:13px;
-}
-
-/* ================= DOWNLOAD ================= */
-
-.download{
-    text-align:center;
-}
-
-.download-box{
-    padding:55px 25px;
-    border-radius:25px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.04);
-    backdrop-filter:blur(20px);
-    box-shadow:0 20px 80px rgba(0,0,0,.3);
-}
-
-.download-box h2{
-    font-family:Orbitron,sans-serif;
-    font-size:35px;
-    margin-bottom:15px;
-}
-
-.download-box p{
-    color:#888;
-    margin-bottom:25px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    text-align:center;
-    padding:40px 20px;
-    border-top:1px solid rgba(255,255,255,.08);
-    color:#666;
-    font-size:13px;
-}
-
-footer strong{
-    color:#aaa;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:800px){
-
-    nav{
-        display:none;
+      background-size: 300%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rgbText 7s linear infinite;
+      text-shadow: 0 0 50px rgba(155,92,255,.18);
     }
 
-    .grid{
-        grid-template-columns:1fr;
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      color: #c2c2cc;
+      font-size: 17px;
+      line-height: 1.8;
     }
 
-    .hud-demo{
-        grid-template-columns:1fr;
+    .hero-buttons {
+      margin-top: 35px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
     }
 
-    section{
-        padding:75px 18px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 175px;
+      padding: 14px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: white;
+      font-weight: 700;
+      transition: .3s;
+      border: 1px solid var(--border);
     }
 
-    h1{
-        font-size:45px;
+    .btn:hover {
+      transform: translateY(-5px);
     }
 
-    .hero{
-        padding-left:18px;
-        padding-right:18px;
-    }
-}
-
-@media(max-width:450px){
-
-    .logo{
-        font-size:17px;
+    .btn-primary {
+      background: linear-gradient(135deg, #9b5cff, #ff3cac);
+      box-shadow: 0 0 35px rgba(155,92,255,.3);
     }
 
-    h1{
-        font-size:37px;
+    .btn-secondary {
+      background: rgba(255,255,255,.07);
+      backdrop-filter: blur(15px);
     }
 
-    .btn{
-        width:100%;
+    /* =========================
+       SERVER STATUS
+    ========================= */
+
+    .status-box {
+      max-width: 950px;
+      margin: -20px auto 80px;
+      padding: 22px;
+      position: relative;
+      z-index: 5;
     }
-}
-</style>
+
+    .status-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 25px;
+      border: 1px solid var(--border);
+      background: rgba(10,10,18,.75);
+      backdrop-filter: blur(20px);
+      border-radius: 22px;
+      box-shadow: 0 20px 80px rgba(0,0,0,.35);
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .status-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #00ff88;
+      box-shadow: 0 0 20px #00ff88;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.25);
+        opacity: .6;
+      }
+    }
+
+    .status-title {
+      font-weight: 800;
+    }
+
+    .status-sub {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .server-ip {
+      font-family: monospace;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .copy-btn {
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.07);
+      color: white;
+      padding: 11px 17px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================= */
+
+    section {
+      padding: 100px 5%;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title span {
+      color: #bda1ff;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .section-title h2 {
+      margin-top: 10px;
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(30px, 5vw, 52px);
+    }
+
+    .section-title p {
+      margin: 15px auto 0;
+      color: var(--muted);
+      max-width: 650px;
+    }
+
+    /* =========================
+       FEATURES
+    ========================= */
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 30px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      backdrop-filter: blur(18px);
+      transition: .35s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(155,92,255,.5);
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+
+    .icon {
+      width: 55px;
+      height: 55px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-size: 25px;
+      background: linear-gradient(135deg, rgba(155,92,255,.22), rgba(0,234,255,.15));
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* =========================
+       STATS
+    ========================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 25px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 28px 15px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Orbitron";
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================
+       SHOP
+    ========================= */
+
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .shop-card {
+      text-align: center;
+      padding: 35px 25px;
+      border-radius: 22px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.08),
+        rgba(255,255,255,.025)
+      );
+      border: 1px solid var(--border);
+    }
+
+    .shop-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .shop-card h3 {
+      font-size: 22px;
+    }
+
+    .price {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 15px 0;
+      background: linear-gradient(90deg,#00eaff,#9b5cff,#ff3cac);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* =========================
+       RANKS
+    ========================= */
+
+    .rank-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .rank {
+      padding: 28px 20px;
+      text-align: center;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    .rank-name {
+      font-family: "Orbitron";
+      font-weight: 800;
+      font-size: 19px;
+      margin-bottom: 12px;
+    }
+
+    .rank p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .owner { color: #ff4b4b; }
+    .admin { color: #00eaff; }
+    .mod { color: #8dff00; }
+    .helper { color: #00ff88; }
+    .vip { color: #ffd400; }
+    .member { color: #cfcfcf; }
+
+    /* =========================
+       RULES
+    ========================= */
+
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .rule {
+      padding: 23px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .rule-number {
+      min-width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg,#9b5cff,#ff3cac);
+      font-weight: 800;
+    }
+
+    .rule h4 {
+      margin-bottom: 5px;
+    }
+
+    .rule p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      padding: 80px 30px;
+      text-align: center;
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(155,92,255,.3), transparent 35%),
+        radial-gradient(circle at 80% 50%, rgba(255,60,172,.25), transparent 35%),
+        rgba(255,255,255,.045);
+      border: 1px solid var(--border);
+    }
+
+    .cta h2 {
+      font-family: "Orbitron";
+      font-size: clamp(30px, 5vw, 55px);
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 45px 5%;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,.3);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+    }
+
+    .socials a {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      text-decoration: none;
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      transition: .3s;
+    }
+
+    .socials a:hover {
+      transform: translateY(-4px);
+      background: rgba(155,92,255,.2);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 900px) {
+      .features,
+      .shop-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .rank-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      header {
+        padding: 15px 20px;
+      }
+
+      .menu {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 75px;
+        left: 20px;
+        right: 20px;
+        display: none;
+        flex-direction: column;
+        padding: 25px;
+        background: rgba(8,8,14,.95);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        backdrop-filter: blur(20px);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-discord {
+        display: inline-block;
+      }
+
+      .status-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .server-ip {
+        word-break: break-all;
+      }
+
+      .features,
+      .shop-grid,
+      .rank-grid,
+      .rules {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- PARTICLES -->
-<div class="particles" id="particles"></div>
+  <!-- BACKGROUND -->
+  <div class="background"></div>
+  <div class="particles" id="particles"></div>
 
-<!-- HEADER -->
-<header>
-    <div class="nav">
-        <div class="logo">⚔ DINKAN SMP HACK</div>
+  <!-- =========================
+       NAVBAR
+  ========================== -->
 
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#hud">HUD</a>
-            <a href="#download">Download</a>
-        </nav>
-    </div>
-</header>
+  <header id="header">
+    <nav>
 
-<!-- HERO -->
-<main>
+      <a href="#home" class="logo">
+        ⚔ <span>DINKANxMALLU</span>
+      </a>
 
-<section class="hero">
-    <div class="hero-content">
+      <div class="menu" id="menu">
+        ☰
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#ranks">Ranks</a></li>
+        <li><a href="#rules">Rules</a></li>
+        <li>
+          <a
+            href="https://discord.gg/"
+            target="_blank"
+            class="nav-discord"
+          >
+            Discord
+          </a>
+        </li>
+      </ul>
+
+    </nav>
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main id="home">
+
+    <section class="hero">
+
+      <div class="hero-content">
 
         <div class="badge">
-            ⚡ DINKAN SMP • CLIENT V1
+          ⛏ MINECRAFT SURVIVAL MULTIPLAYER
         </div>
 
-        <h1>DINKAN SMP HACK V1</h1>
+        <h1>DINKANxMALLU</h1>
 
         <p>
-            A neon RGB Minecraft utility-client showcase for PvP HUD,
-            performance information, keystrokes, crosshair tools and
-            customizable visual features.
+          Welcome to DINKANxMALLU — a next-generation Minecraft SMP
+          built for adventure, survival, friendship and unforgettable moments.
         </p>
 
-        <div class="buttons">
+        <div class="hero-buttons">
 
-            <a
-                class="btn btn-primary"
-                href="https://www.mediafire.com/file/4fr1o8zmtn24qjq/meteor-client-1.21.11-82.jar/file"
-                target="_blank"
-                rel="noopener"
-            >
-                📥 DOWNLOAD CLIENT
-            </a>
+          <a href="#server" class="btn btn-primary">
+            🎮 PLAY NOW
+          </a>
 
-            <a class="btn" href="#features">
-                ⚡ VIEW FEATURES
-            </a>
-
-        </div>
-
-        <div class="status">
-            <span class="dot"></span>
-            CLIENT V1 ONLINE
-        </div>
-
-    </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features">
-
-    <div class="section-title">
-        <h2>⚡ FEATURES</h2>
-        <p>DINKAN SMP HACK V1 utility features</p>
-    </div>
-
-    <div class="grid">
-
-        <div class="card">
-            <div class="icon">🖱️</div>
-            <h3>CPS COUNTER</h3>
-            <p>
-                Display left and right mouse clicks per second
-                in a clean PvP HUD style.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">⌨️</div>
-            <h3>KEYSTROKES</h3>
-            <p>
-                Show WASD, jump and mouse-button activity
-                with an animated visual layout.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">📊</div>
-            <h3>FPS + PING</h3>
-            <p>
-                Keep performance information visible while
-                playing Minecraft.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🎯</div>
-            <h3>CUSTOM CROSSHAIR</h3>
-            <p>
-                Use a clean customizable crosshair concept
-                designed for PvP visibility.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🏃</div>
-            <h3>SPRINT HUD</h3>
-            <p>
-                Display sprint state in a compact interface
-                designed for Minecraft gameplay.
-            </p>
-        </div>
-
-        <div class="card">
-            <div class="icon">🌈</div>
-            <h3>RGB HUD</h3>
-            <p>
-                Animated RGB gradients and neon effects
-                throughout the interface.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- HUD -->
-<section id="hud">
-
-    <div class="section-title">
-        <h2>🎮 HUD PREVIEW</h2>
-        <p>DINKAN-style Minecraft PvP interface</p>
-    </div>
-
-    <div class="hud-demo">
-
-        <div class="hud">
-
-            <div class="hud-title">
-                ⌨ KEYSTROKES
-            </div>
-
-            <div class="keystrokes">
-
-                <div class="key"></div>
-
-                <div class="key active">W</div>
-
-                <div class="key"></div>
-
-            </div>
-
-            <div class="keystrokes">
-
-                <div class="key active">A</div>
-                <div class="key">S</div>
-                <div class="key active">D</div>
-
-            </div>
-
-            <div class="keystrokes">
-
-                <div class="key">LMB</div>
-                <div class="key">RMB</div>
-
-            </div>
-
-        </div>
-
-        <div class="hud">
-
-            <div class="hud-title">
-                📊 PERFORMANCE
-            </div>
-
-            <div class="stats">
-
-                <div class="stat">
-                    <span>FPS</span>
-                    <strong class="rgb">144</strong>
-                </div>
-
-                <div class="stat">
-                    <span>Ping</span>
-                    <strong class="rgb">42 ms</strong>
-                </div>
-
-                <div class="stat">
-                    <span>CPS</span>
-                    <strong class="rgb">11.8</strong>
-                </div>
-
-                <div class="stat">
-                    <span>Sprint</span>
-                    <strong class="rgb">ON</strong>
-                </div>
-
-            </div>
-
-            <div class="crosshair-box">
-                <div class="crosshair"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- DOWNLOAD -->
-<section id="download" class="download">
-
-    <div class="download-box">
-
-        <h2>🔥 DINKAN SMP HACK V1</h2>
-
-        <p>
-            Get the client build supplied by DINKAN SMP.
-        </p>
-
-        <a
-            class="btn btn-primary"
-            href="https://www.mediafire.com/file/4fr1o8zmtn24qjq/meteor-client-1.21.11-82.jar/file"
+          <a
+            href="https://discord.gg/"
             target="_blank"
-            rel="noopener"
-        >
-            📥 DOWNLOAD METEOR CLIENT
+            class="btn btn-secondary"
+          >
+            💬 JOIN DISCORD
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVER STATUS
+    ========================== -->
+
+    <div class="status-box" id="server">
+
+      <div class="status-card">
+
+        <div class="status-left">
+
+          <div class="status-dot"></div>
+
+          <div>
+            <div class="status-title">
+              SERVER STATUS
+            </div>
+
+            <div class="status-sub">
+              DINKANxMALLU • Online
+            </div>
+          </div>
+
+        </div>
+
+        <div class="server-ip" id="serverIP">
+          YOUR_SERVER_IP
+        </div>
+
+        <button class="copy-btn" onclick="copyIP()">
+          📋 COPY IP
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         FEATURES
+    ========================== -->
+
+    <section id="features">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>WHY DINKANxMALLU</span>
+          <h2>Server Features</h2>
+          <p>
+            Everything you need for a fun and exciting Minecraft SMP experience.
+          </p>
+        </div>
+
+        <div class="features">
+
+          <div class="card">
+            <div class="icon">🌎</div>
+            <h3>Survival World</h3>
+            <p>
+              Explore a large survival world, build your base,
+              collect resources and create your own adventure.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">⚔️</div>
+            <h3>SMP Gameplay</h3>
+            <p>
+              Enjoy a community-focused SMP experience with
+              players, events and exciting gameplay.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">💰</div>
+            <h3>Economy</h3>
+            <p>
+              Earn money, trade items and build your own Minecraft
+              economy empire.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">🏆</div>
+            <h3>Events</h3>
+            <p>
+              Participate in server events, challenges and
+              community competitions.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">🛡️</div>
+            <h3>Protected Builds</h3>
+            <p>
+              Build your dream base while keeping your creations
+              protected from unwanted damage.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="icon">⚡</div>
+            <h3>Active Community</h3>
+            <p>
+              Meet new players, make friends and join our growing
+              Minecraft community.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         STATS
+    ========================== -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>DINKANxMALLU</span>
+          <h2>Server Stats</h2>
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <strong>24/7</strong>
+            <span>Server Availability</span>
+          </div>
+
+          <div class="stat">
+            <strong>1.21+</strong>
+            <span>Minecraft Version</span>
+          </div>
+
+          <div class="stat">
+            <strong>∞</strong>
+            <span>Adventure</span>
+          </div>
+
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Community</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SHOP
+    ========================== -->
+
+    <section id="shop">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>STORE</span>
+          <h2>DINKAN SHOP</h2>
+          <p>
+            Support the server and unlock awesome cosmetic perks.
+          </p>
+        </div>
+
+        <div class="shop-grid">
+
+          <div class="shop-card">
+            <div class="shop-icon">💎</div>
+            <h3>VIP</h3>
+            <div class="price">₹99</div>
+            <p>
+              Special VIP perks and exclusive benefits.
+            </p>
+            <br>
+            <a href="#" class="btn btn-primary">
+              BUY NOW
+            </a>
+          </div>
+
+          <div class="shop-card">
+            <div class="shop-icon">🔥</div>
+            <h3>MVP</h3>
+            <div class="price">₹199</div>
+            <p>
+              More perks, more features and more style.
+            </p>
+            <br>
+            <a href="#" class="btn btn-primary">
+              BUY NOW
+            </a>
+          </div>
+
+          <div class="shop-card">
+            <div class="shop-icon">👑</div>
+            <h3>LEGEND</h3>
+            <div class="price">₹399</div>
+            <p>
+              Premium server rank with exclusive perks.
+            </p>
+            <br>
+            <a href="#" class="btn btn-primary">
+              BUY NOW
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RANKS
+    ========================== -->
+
+    <section id="ranks">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>STAFF & COMMUNITY</span>
+          <h2>Server Ranks</h2>
+        </div>
+
+        <div class="rank-grid">
+
+          <div class="rank">
+            <div class="rank-name owner">
+              ᴏᴡɴᴇʀ
+            </div>
+            <p>
+              Server owner and highest staff rank.
+            </p>
+          </div>
+
+          <div class="rank">
+            <div class="rank-name admin">
+              ᴀᴅᴍɪɴ
+            </div>
+            <p>
+              Server administration and management.
+            </p>
+          </div>
+
+          <div class="rank">
+            <div class="rank-name mod">
+              ᴍᴏᴅ
+            </div>
+            <p>
+              Helps maintain a safe and friendly server.
+            </p>
+          </div>
+
+          <div class="rank">
+            <div class="rank-name helper">
+              ʜᴇʟᴘᴇʀ
+            </div>
+            <p>
+              Helps players and supports the community.
+            </p>
+          </div>
+
+          <div class="rank">
+            <div class="rank-name vip">
+              ᴠɪᴘ
+            </div>
+            <p>
+              Special player rank with extra perks.
+            </p>
+          </div>
+
+          <div class="rank">
+            <div class="rank-name member">
+              ᴍᴇᴍʙᴇʀ
+            </div>
+            <p>
+              Default rank for DINKANxMALLU players.
+            </p>
+          </div>
+
+          <div class="rank">
+            <div class="rank-name" style="color:#ff69b4;">
+              📹 ᴍᴇᴅɪᴀ
+            </div>
+            <p>
+              Content creators and media members.
+            </p>
+          </div>
+
+          <div class="rank">
+            <div class="rank-name" style="color:#b16cff;">
+              ᴅᴇᴠ
+            </div>
+            <p>
+              Developers and technical team members.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RULES
+    ========================== -->
+
+    <section id="rules">
+
+      <div class="container">
+
+        <div class="section-title">
+          <span>PLAY FAIR</span>
+          <h2>Server Rules</h2>
+          <p>
+            Keep DINKANxMALLU fun and enjoyable for everyone.
+          </p>
+        </div>
+
+        <div class="rules">
+
+          <div class="rule">
+            <div class="rule-number">01</div>
+            <div>
+              <h4>Respect Players</h4>
+              <p>
+                Treat other players and staff with respect.
+              </p>
+            </div>
+          </div>
+
+          <div class="rule">
+            <div class="rule-number">02</div>
+            <div>
+              <h4>No Griefing</h4>
+              <p>
+                Do not destroy or damage another player's builds.
+              </p>
+            </div>
+          </div>
+
+          <div class="rule">
+            <div class="rule-number">03</div>
+            <div>
+              <h4>No Cheating</h4>
+              <p>
+                Hacks, cheats and unfair advantages are not allowed.
+              </p>
+            </div>
+          </div>
+
+          <div class="rule">
+            <div class="rule-number">04</div>
+            <div>
+              <h4>No Exploiting</h4>
+              <p>
+                Do not abuse bugs, glitches or unintended mechanics.
+              </p>
+            </div>
+          </div>
+
+          <div class="rule">
+            <div class="rule-number">05</div>
+            <div>
+              <h4>No Spam</h4>
+              <p>
+                Keep chat clean and avoid excessive messages.
+              </p>
+            </div>
+          </div>
+
+          <div class="rule">
+            <div class="rule-number">06</div>
+            <div>
+              <h4>Follow Staff</h4>
+              <p>
+                Follow reasonable instructions from server staff.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DISCORD CTA
+    ========================== -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="cta">
+
+          <h2>JOIN DINKANxMALLU</h2>
+
+          <p>
+            Join our Discord community, meet other players and
+            stay updated with everything happening on the server.
+          </p>
+
+          <a
+            href="https://discord.gg/"
+            target="_blank"
+            class="btn btn-primary"
+          >
+            💬 JOIN DISCORD
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-inner">
+
+      <div class="footer-text">
+        © 2026 DINKANxMALLU. All rights reserved.
+        <br>
+        Not affiliated with Mojang or Microsoft.
+      </div>
+
+      <div class="socials">
+
+        <a href="#" title="YouTube">
+          ▶
         </a>
 
-        <p style="margin-top:20px;font-size:12px;">
-            File: meteor-client-1.21.11-82.jar
-        </p>
+        <a href="#" title="Discord">
+          💬
+        </a>
+
+        <a href="#" title="Instagram">
+          ◎
+        </a>
+
+        <a href="#" title="TikTok">
+          ♪
+        </a>
+
+      </div>
 
     </div>
 
-</section>
+  </footer>
 
-</main>
 
-<!-- FOOTER -->
-<footer>
-    <strong>DINKAN SMP HACK V1</strong>
-    <br><br>
-    Minecraft utility client showcase • RGB Edition
-    <br><br>
-    © 2026 DINKAN SMP
-</footer>
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
-<script>
+  <script>
 
-/* ================= PARTICLE GENERATOR ================= */
+    /* MOBILE MENU */
 
-const particleContainer =
-    document.getElementById("particles");
+    const menu = document.getElementById("menu");
+    const navLinks = document.getElementById("navLinks");
 
-for(let i = 0; i < 70; i++){
-
-    const p = document.createElement("div");
-
-    p.className = "particle";
-
-    p.style.left = Math.random() * 100 + "%";
-
-    p.style.animationDuration =
-        (5 + Math.random() * 12) + "s";
-
-    p.style.animationDelay =
-        (-Math.random() * 15) + "s";
-
-    const size =
-        (2 + Math.random() * 4) + "px";
-
-    p.style.width = size;
-    p.style.height = size;
-
-    particleContainer.appendChild(p);
-}
-
-/* ================= KEYSTROKES ANIMATION ================= */
-
-const keys = document.querySelectorAll(".key");
-
-setInterval(() => {
-
-    keys.forEach(key => {
-        if(Math.random() > 0.72){
-            key.classList.toggle("active");
-        }
+    menu.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
     });
 
-}, 350);
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+      });
+    });
 
-/* ================= MOUSE RGB EFFECT ================= */
 
-document.addEventListener("mousemove", (event) => {
+    /* HEADER SCROLL EFFECT */
 
-    const x = event.clientX / window.innerWidth * 100;
-    const y = event.clientY / window.innerHeight * 100;
+    const header = document.getElementById("header");
 
-    document.body.style.background =
-        `radial-gradient(
-            circle at ${x}% ${y}%,
-            rgba(0,180,255,.035),
-            #050509 45%
-        )`;
+    window.addEventListener("scroll", () => {
 
-});
+      if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
 
-/* ================= CONSOLE ================= */
+    });
 
-console.log(
-    "%c DINKAN SMP HACK V1 ",
-    "color:#00eaff;font-size:20px;font-weight:bold;"
-);
 
-console.log(
-    "%c RGB CLIENT WEBSITE ONLINE ",
-    "color:#ff00cc;font-size:14px;"
-);
+    /* COPY SERVER IP */
 
-</script>
+    function copyIP() {
+
+      const ip = document
+        .getElementById("serverIP")
+        .innerText;
+
+      navigator.clipboard.writeText(ip).then(() => {
+
+        const button = document.querySelector(".copy-btn");
+
+        const oldText = button.innerText;
+
+        button.innerText = "✅ COPIED!";
+
+        setTimeout(() => {
+          button.innerText = oldText;
+        }, 1800);
+
+      });
+
+    }
+
+
+    /* PARTICLES */
+
+    const particles = document.getElementById("particles");
+
+    for (let i = 0; i < 45; i++) {
+
+      const particle = document.createElement("div");
+
+      particle.className = "particle";
+
+      particle.style.left =
+        Math.random() * 100 + "%";
+
+      particle.style.animationDuration =
+        (5 + Math.random() * 10) + "s";
+
+      particle.style.animationDelay =
+        (Math.random() * 8) + "s";
+
+      particle.style.opacity =
+        (0.15 + Math.random() * 0.65);
+
+      particles.appendChild(particle);
+
+    }
+
+
+    /* SIMPLE 3D CARD EFFECT */
+
+    document.querySelectorAll(".card, .shop-card, .rank").forEach(card => {
+
+      card.addEventListener("mousemove", (e) => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const rotateX =
+          ((y / rect.height) - 0.5) * -5;
+
+        const rotateY =
+          ((x / rect.width) - 0.5) * 5;
+
+        card.style.transform =
+          `perspective(700px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateY(-5px)`;
+
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+
+    });
+
+  </script>
 
 </body>
 </html>
-```
